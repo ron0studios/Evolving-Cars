@@ -42,7 +42,8 @@ func _ready():
 		if test[3][i] < 0.2:
 			continue
 		$wheels.add_child(newwheel)
-		newwheel.get_node("CollisionShape2D").scale *= test[3][i]
+		newwheel.get_node("CollisionShape2D").scale *= test[3][i] # wheel size
+		
 		#newwheel.set_scale(Vector2(test[3][i],test[3][i]))
 		
 	

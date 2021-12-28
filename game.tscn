@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://thing.tscn" type="PackedScene" id=1]
 [ext_resource path="res://RoadGeneration.gd" type="Script" id=2]
+[ext_resource path="res://game.gd" type="Script" id=3]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -9,14 +9,44 @@ glow_enabled = true
 glow_bloom = 0.27
 
 [node name="game" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="look-goodifier" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[node name="thing" parent="." instance=ExtResource( 1 )]
-position = Vector2( 416, 56 )
-
 [node name="RoadGeneration" type="StaticBody2D" parent="."]
 collision_layer = 2
-collision_mask = 2
 script = ExtResource( 2 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+margin_top = 512.0
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="HUD"]
+margin_left = 32.0
+margin_top = 536.0
+margin_right = 176.0
+margin_bottom = 568.0
+text = "Start generation"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="HUD"]
+margin_left = 184.0
+margin_top = 320.0
+margin_right = 200.0
+margin_bottom = 336.0
+color = Color( 0.0509804, 0.67451, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="HUD/Button" to="." method="_on_Button_pressed"]

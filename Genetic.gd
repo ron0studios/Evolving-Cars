@@ -25,6 +25,12 @@ func randomgen():# generates a completely random first generation
 	
 	return outgen
 
+# distance: the total distance travelled from start
+# wheelsum: sum of sizes of all wheels (we want to minimize)
+func fitness(distance, wheelsum, totaldistance):
+	return (distance/totaldistance) - (wheelsum/8)
+	pass
+
 func _enter_tree():
 	generations.append(randomgen())
 
