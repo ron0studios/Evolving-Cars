@@ -20,3 +20,6 @@ color = Color( 0.831373, 0.886275, 0.517647, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_b = NodePath("..")

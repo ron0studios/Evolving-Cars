@@ -37,8 +37,10 @@ func _ready():
 	# add wheels
 	for i in range(8):
 		var newwheel = preload("res://wheel.tscn").instance()
-		var pinjoint = PinJoint2D.new()
-		#pinjoint.
+		newwheel.position = Vector2(test[0][i]*size,test[1][i]*size)
+		newwheel.scale = Vector2(test[3][i]*size,test[3][i]*size)
+		newwheel.get_node("PinJoint2D").node_a = self.get_path()
+		add_child(newwheel)
 	
 	#arr.append(Vector2(test[0][i]*size, test[1][i]*size))
 
