@@ -12,6 +12,7 @@ angular_damp = 0.0
 shape = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 margin_left = -24.0
 margin_top = -24.0
 margin_right = 24.0
