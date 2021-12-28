@@ -39,7 +39,7 @@ func _ready():
 		var newwheel = load("res://wheel.tscn").instance()
 		newwheel.position = Vector2(test[0][i]*size,test[1][i]*size)
 		newwheel.get_node("PinJoint2D").node_a = self.get_path()
-		if test[3][i] < 0.5:
+		if test[3][i] < 0.2:
 			continue
 		$wheels.add_child(newwheel)
 		newwheel.get_node("CollisionShape2D").scale *= test[3][i]
