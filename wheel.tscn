@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 24.0
+
+[node name="wheel" type="RigidBody2D"]
+collision_mask = 2
+angular_velocity = 100.0
+angular_damp = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -24.0
+margin_top = -24.0
+margin_right = 24.0
+margin_bottom = 24.0
+color = Color( 0.831373, 0.886275, 0.517647, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
