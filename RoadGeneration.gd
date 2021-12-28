@@ -10,7 +10,7 @@ export (Array, NodePath) var lines_to_follow = [NodePath("Line2D")]
 
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.position.y < 512:
 		_pressed = event.pressed
 		
 		if _pressed:
@@ -39,4 +39,4 @@ func _input(event):
 				add_child(segment_collider)
 	
 	if event is InputEventMouseMotion && _pressed:
-		_current_line.add_point(event.position)
+		_current_line.add_point(get_global_mouse_position())

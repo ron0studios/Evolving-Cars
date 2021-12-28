@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://cam.gd" type="Script" id=1]
 [ext_resource path="res://RoadGeneration.gd" type="Script" id=2]
 [ext_resource path="res://game.gd" type="Script" id=3]
 
@@ -17,6 +18,26 @@ environment = SubResource( 1 )
 [node name="RoadGeneration" type="StaticBody2D" parent="."]
 collision_layer = 2
 script = ExtResource( 2 )
+
+[node name="start" type="ColorRect" parent="."]
+margin_left = 184.0
+margin_top = 320.0
+margin_right = 200.0
+margin_bottom = 336.0
+color = Color( 0.0509804, 0.67451, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="end" type="ColorRect" parent="."]
+margin_left = 2032.0
+margin_top = 320.0
+margin_right = 2048.0
+margin_bottom = 336.0
+color = Color( 0.67451, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -39,14 +60,52 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect2" type="ColorRect" parent="HUD"]
-margin_left = 184.0
-margin_top = 320.0
-margin_right = 200.0
-margin_bottom = 336.0
-color = Color( 0.0509804, 0.67451, 0, 1 )
+[node name="zoomlabel" type="Label" parent="HUD"]
+margin_left = 248.0
+margin_top = 536.0
+margin_right = 360.0
+margin_bottom = 560.0
+text = "Zoom = 1.0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HScrollBar" type="HScrollBar" parent="HUD"]
+margin_left = 240.0
+margin_top = 552.0
+margin_right = 368.0
+margin_bottom = 568.0
+min_value = 0.1
+max_value = 5.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="timelabel" type="Label" parent="HUD"]
+margin_left = 920.0
+margin_top = 520.0
+margin_right = 1016.0
+margin_bottom = 560.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cars" type="Node2D" parent="."]
+
+[node name="cam" type="Camera2D" parent="."]
+position = Vector2( 512, 304 )
+current = true
+script = ExtResource( 1 )
+
+[node name="gentimelimit" type="Timer" parent="."]
+process_mode = 0
+wait_time = 20.0
+one_shot = true
+__meta__ = {
+"_editor_description_": "Time liimt that each generation has to live"
+}
+
 [connection signal="pressed" from="HUD/Button" to="." method="_on_Button_pressed"]
+[connection signal="value_changed" from="HUD/HScrollBar" to="." method="_on_HScrollBar_value_changed"]
+[connection signal="timeout" from="gentimelimit" to="." method="_on_gentimelimit_timeout"]

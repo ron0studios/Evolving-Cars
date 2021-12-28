@@ -31,4 +31,4 @@ __meta__ = {
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 node_b = NodePath("..")
-softness = 16.0
+softness = 5.0
