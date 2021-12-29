@@ -82,9 +82,9 @@ __meta__ = {
 
 [node name="GenSizeSlider" type="HSlider" parent="HUD"]
 margin_left = 336.0
-margin_top = 546.0
+margin_top = 543.0
 margin_right = 471.0
-margin_bottom = 562.0
+margin_bottom = 559.0
 min_value = 7.0
 max_value = 50.0
 value = 20.0
@@ -133,6 +133,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FitnessButton" type="OptionButton" parent="HUD"]
+margin_left = 335.0
+margin_top = 565.0
+margin_right = 505.0
+margin_bottom = 585.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="cars" type="Node2D" parent="."]
 
 [node name="cam" type="Camera2D" parent="."]
@@ -144,3 +153,4 @@ script = ExtResource( 1 )
 [connection signal="pressed" from="HUD/ResetButton" to="." method="_on_ResetButton_pressed"]
 [connection signal="value_changed" from="HUD/GenSizeSlider" to="." method="_on_GenSizeSlider_value_changed"]
 [connection signal="value_changed" from="HUD/HScrollBar" to="." method="_on_HScrollBar_value_changed"]
+[connection signal="item_selected" from="HUD/FitnessButton" to="." method="_on_FitnessButton_item_selected"]

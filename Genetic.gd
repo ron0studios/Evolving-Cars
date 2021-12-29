@@ -8,6 +8,7 @@ extends Node
 var generations = []
 var genfitness = []
 var gensize = 20 # size per generation
+var fitness_id = 0
 
 
 func randomgen():# generates a completely random first generation
@@ -143,11 +144,17 @@ func nextgen(prevgen):
 func fitness(distance, wheelsum, lifetime):
 	var endpoint = get_tree().get_root().get_node("game/end").rect_global_position.x
 	
-	return pow(distance/endpoint,2) - (2*(lifetime/40)) - (wheelsum/8) 
-	#return pow(distance,3)-pow(wheelsum*10,2)-pow(lifetime*90,3) # all factors
-	#return pow(distance,3)-pow(lifetime*90,3) # we dont care about wheels
-	#return pow(wheelsum,2) # we like wheels
-	#return -lifetime # we only care about speed
+	match fitness_id:
+		0:
+			return (distance/endpoint) - (lifetime/40) - (wheelsum/8) # all factors
+		1:
+			return pow(distance,3)-pow(wheelsum*10,2)-pow(lifetime*90,3) # all factors but bad
+		2:
+			return pow(distance,3)-pow(lifetime*90,3) # we dont care about wheels
+		3:
+			return wheelsum # we like wheels
+		4:
+			return -lifetime # we only care about speed
 	
 
 func _enter_tree():
