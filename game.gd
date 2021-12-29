@@ -6,6 +6,13 @@ var genpassed = 0
 
 func _ready():
 	Engine.time_scale = 3
+	
+	# WHY ARE OPTION BUTTONS BROKEY
+	$HUD/FitnessButton.add_item("Balanced", 0)
+	$HUD/FitnessButton.add_item("Balanced but dumb", 1)
+	$HUD/FitnessButton.add_item("Wheels suck", 3)
+	$HUD/FitnessButton.add_item("We like wheels", 2)
+	$HUD/FitnessButton.add_item("Speed demon", 4)
 
 func _physics_process(_delta):
 	# num cars that have finished
@@ -74,3 +81,7 @@ func _on_GenSizeSlider_value_changed(value):
 		i.queue_free()
 	
 	$HUD/GenLabel.text = "Generation: " + str(genpassed)
+
+
+func _on_FitnessButton_item_selected(index):
+	Genetic.fitness_id = index
