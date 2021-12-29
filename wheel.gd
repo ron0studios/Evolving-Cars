@@ -8,7 +8,6 @@ export(int,0,20,0.5) var turningspeed = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	angular_velocity = turningspeed
 	pass # Replace with function body.
 

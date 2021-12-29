@@ -19,9 +19,9 @@ func randomgen():# generates a completely random first generation
 		for j in range(8):
 			gene[0].append(randomizer.randf_range(-1,1)) # x coord
 			gene[1].append(randomizer.randf_range(-1,1)) # y coord
-			gene[2].append(randf()) # weight
+			gene[2].append(round(randf())) # wheelenabled
 			gene[3].append(randf()) # wheel radius (close to 0 means no wheel)
-			gene[4].append(randf()) # wheel weight (close to 0 means no wheel)
+			gene[4].append(randf()*2) # wheel weight (0-2x weight) (close to 0 means no weight)
 		outgen.append(gene)
 	
 	return outgen
@@ -140,9 +140,12 @@ func nextgen(prevgen):
 
 # distance: the total distance travelled from start
 # wheelsum: sum of sizes of all wheels (we want to minimize)
-func fitness(distance, wheelsum, totaldistance):
-	return (distance/totaldistance) - (wheelsum/8)
-	pass
+func fitness(distance, wheelsum, lifetime):
+	return pow(distance,3)-pow(wheelsum*10,2)-pow(lifetime*90,3) # all factors
+	#return pow(distance,3)-pow(lifetime*90,3) # we dont care about wheels
+	#return pow(wheelsum,2) # we like wheels
+	#return -lifetime # we only care about speed
+	
 
 func _enter_tree():
 	generations.append(randomgen())

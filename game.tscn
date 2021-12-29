@@ -108,14 +108,5 @@ position = Vector2( 512, 304 )
 current = true
 script = ExtResource( 1 )
 
-[node name="gentimelimit" type="Timer" parent="."]
-process_mode = 0
-wait_time = 20.0
-one_shot = true
-__meta__ = {
-"_editor_description_": "Time liimt that each generation has to live"
-}
-
 [connection signal="pressed" from="HUD/Button" to="." method="_on_Button_pressed"]
 [connection signal="value_changed" from="HUD/HScrollBar" to="." method="_on_HScrollBar_value_changed"]
-[connection signal="timeout" from="gentimelimit" to="." method="_on_gentimelimit_timeout"]
