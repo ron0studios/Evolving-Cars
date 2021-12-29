@@ -143,7 +143,7 @@ func nextgen(prevgen):
 func fitness(distance, wheelsum, lifetime):
 	var endpoint = get_tree().get_root().get_node("game/end").rect_global_position.x
 	
-	return (distance/endpoint) - (lifetime/40) - (wheelsum/8) 
+	return pow(distance/endpoint,2) - (2*(lifetime/40)) - (wheelsum/8) 
 	#return pow(distance,3)-pow(wheelsum*10,2)-pow(lifetime*90,3) # all factors
 	#return pow(distance,3)-pow(lifetime*90,3) # we dont care about wheels
 	#return pow(wheelsum,2) # we like wheels
