@@ -24,7 +24,10 @@ func _physics_process(_delta):
 		end()
 		
 	if Input.is_key_pressed(KEY_Q):
-		$cam.zoom -= Vector2(0.1,0.1)
+		if $cam.zoom.x >= 0.2:
+			$cam.zoom -= Vector2(0.1,0.1)
+		else:
+			$cam.zoom = Vector2(0.1,0.1)
 		$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
 		$HUD/HScrollBar.value = $cam.zoom.x
 	elif Input.is_key_pressed(KEY_E):

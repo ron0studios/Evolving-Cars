@@ -9,7 +9,8 @@ var generations = []
 var genfitness = []
 var gensize = 20 # size per generation
 var fitness_id = 0
-var mutate_chance = 0.1
+var mutate_chance = 0.05
+var n_mutations = 0
 
 func randomgen():# generates a completely random first generation
 	var outgen = []
@@ -32,16 +33,21 @@ func roulette_selection(set):
 	var selection = []
 	var fitset = genfitness[-1] # fitness of the last generation
 	var wheel = 0
+	var minval = 999999999999
 	for i in fitset:
-		wheel += i
+		if i < minval:
+			minval = i
+		wheel += abs(i)
 	
-	for _i in range(2):
-		var pick = rand_range(0,wheel)
-		var current = 0
+	for i in range(2):
+		var pick = rand_range(minval,minval+wheel)
+		var current = minval
 		for j in gensize:
 			current += fitset[j]
-			if current > pick:
+			if current >= pick:
 				selection.append(set[j])
+	
+	
 	return selection
 
 func rand_selection(set, size=2):
@@ -70,14 +76,14 @@ func single_point_crossover(chrom1, chrom2):
 		
 
 # selects 2 from set
-func elitism_selection(set : Array):
+func elitism_selection(set : Array, amt : int = 2):
 	var selection = []
 	
 	for i in range(len(set)):
 		set[i].append(genfitness[-1][i])
 	
 	set.sort_custom(self, "fitcomp")
-	for i in range(2):
+	for i in range(amt):
 		selection.append(set[i])
 		
 	# removes temporary fitness addon
@@ -114,57 +120,77 @@ func tournament_selection(set, tsize):
 				i.erase(j)
 	return selection
 
-func mutate(set):
+func mutate(gene):
+	var set = gene
+	var n_mut = 0
+	
 	# x coord mutation
-	for i in set[0]:
+	for i in range(len(set[0])):
 		if randf() <= mutate_chance:
-			i = rand_range(-1,1)
+			set[0][i] = rand_range(-1,1)
+			n_mut += 1
 		
 	# y coord mutation
-	for i in set[1]:
+	for i in range(len(set[1])):
 		if randf() <= mutate_chance:
-			i = rand_range(-1,1)
+			set[1][i] = rand_range(-1,1)
+			n_mut += 1
 	
 	# wheel enabled
-	for i in set[2]:
+	for i in range(len(set[2])):
 		if randf() <= mutate_chance:
-			i = round(randf())
-	
+			set[2][i] = round(randf())
+			n_mut += 1
+
 	# wheel radius
-	for i in set[3]:
+	for i in range(len(set[3])):
 		if randf() <= mutate_chance:
-			i = randf()
+			set[3][i] = randf()*1.5
+			n_mut += 1
 	
 	# wheel weight
-	for i in set[4]:
+	for i in range(len(set[4])):
 		if randf() <= mutate_chance:
-			i = randf()*2
+			set[4][i] = randf()*5
+			n_mut += 1
+
+	n_mutations += n_mut
+	return set
 
 func nextgen(prevgen):
 	var gen = []
 	
+
 	# elitism pick
 	var best2 = elitism_selection(prevgen)
 	gen.append_array(best2)
 	while len(gen) < gensize:
-		var selection = tournament_selection(prevgen,5)
-		#var selection = roulette_selection(prevgen)
+		#var selection = tournament_selection(prevgen,5)
+		var selection = roulette_selection(prevgen)
 		var crossover = single_point_crossover(selection[0],selection[1])
 		var newchildA = crossover[0]
 		var newchildB = crossover[1]
 		
-		mutate(newchildA)
-		mutate(newchildB)
+		newchildA = mutate(newchildA)
+		newchildB = mutate(newchildB)
 		
 		gen.append(newchildA)
 		gen.append(newchildB)
 	
+
 	# DEBUG
 	# print average fitness
 	var total_fit = 0
+	var max_fit = -99999999
 	for i in genfitness[-1]:
+		if i > max_fit:
+			max_fit = i
 		total_fit += i
-	print(total_fit/gensize)
+	#print("Total Mutations: ", n_mutations)
+	#print("Total Fitness: ", total_fit/gensize, "\n----------")
+	print(max_fit,"\t\t\t",total_fit)
+	
+	n_mutations = 0
 	# set the next generation
 	generations.append(gen)
 
@@ -176,7 +202,7 @@ func fitness(distance, wheelsum, lifetime):
 	
 	match fitness_id:
 		0:
-			return max(0,(4*(distance/endpoint)) - (2*(lifetime/40)) - (2*(wheelsum/8))) # all factors
+			return max(0,(4*(distance/endpoint)) - (2*(lifetime/40)) - (1.5*(wheelsum/8))) # all factors
 		1:
 			return pow(distance,3)-pow(wheelsum*10,2)-pow(lifetime*90,3) # all factors but bad
 		2:

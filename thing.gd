@@ -57,6 +57,8 @@ func _ready():
 
 
 func _physics_process(_delta):
+	
+	
 	#$debuglabel.text = str(linear_velocity)
 	if linear_velocity.x > 20:
 		$idletimer.stop()
@@ -66,7 +68,7 @@ func _physics_process(_delta):
 		emit_signal("done")
 		finished = true
 		distance = get_parent().get_parent().get_node("end").rect_global_position.x
-		lifetime = 100 # big number
+		lifetime = 1000-$lifetime.time_left 
 		$debuglabel.text = str(lifetime)
 	pass
 	
@@ -79,8 +81,9 @@ func _on_idletimer_timeout():
 	if finished == false:
 		emit_signal("done")
 		finished = true
-
-		lifetime = 1000-$lifetime.time_left
+	
+		
+		lifetime = 30 # big number
 		distance = global_position.x
 		$debuglabel.text = str(lifetime)
 	pass # Replace with function body.
