@@ -67,7 +67,7 @@ func _physics_process(_delta):
 		finished = true
 		distance = get_parent().get_parent().get_node("end").rect_global_position.x
 		lifetime = 100 # big number
-		$debuglabel.text = lifetime
+		$debuglabel.text = str(lifetime)
 	pass
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -82,5 +82,5 @@ func _on_idletimer_timeout():
 
 		lifetime = 1000-$lifetime.time_left
 		distance = global_position.x
-		$debuglabel.text = lifetime
+		$debuglabel.text = str(lifetime)
 	pass # Replace with function body.

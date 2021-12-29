@@ -22,6 +22,26 @@ func _physics_process(_delta):
 			donecount += 1
 	if donecount == Genetic.gensize:
 		end()
+		
+	if Input.is_key_pressed(KEY_Q):
+		$cam.zoom -= Vector2(0.1,0.1)
+		$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
+		$HUD/HScrollBar.value = $cam.zoom.x
+	elif Input.is_key_pressed(KEY_E):
+		$cam.zoom += Vector2(0.1,0.1)
+		$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
+		$HUD/HScrollBar.value = $cam.zoom.x
+		
+	if Input.is_key_pressed(KEY_D):
+		$cam.position.x += 15
+	elif Input.is_key_pressed(KEY_A):
+		$cam.position.x -= 15
+	if Input.is_key_pressed(KEY_W):
+		$cam.position.y -= 15
+	elif Input.is_key_pressed(KEY_S):
+		$cam.position.y += 15
+
+
 
 func _on_StartButton_pressed():
 	for i in range(Genetic.gensize):
@@ -47,7 +67,7 @@ func _on_ResetButton_pressed():
 
 func _on_HScrollBar_value_changed(value):
 	$cam.zoom = Vector2(value,value)
-	$HUD/ZoomLabel.text = "Zoom: "+str($HUD/HScrollBar.max_value-value)
+	$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
 
 
 # terminate simulation
