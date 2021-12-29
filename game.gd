@@ -35,12 +35,12 @@ func _on_ResetButton_pressed():
 	for i in $RoadGeneration.get_children():
 		i.queue_free()
 	
-	$HUD/Label.text = "Generation: " + str(genpassed)
+	$HUD/GenLabel.text = "Generation: " + str(genpassed)
 
 
 func _on_HScrollBar_value_changed(value):
 	$cam.zoom = Vector2(value,value)
-	$HUD/zoomlabel.text = "Zoom: "+str($HUD/HScrollBar.max_value-value)
+	$HUD/ZoomLabel.text = "Zoom: "+str($HUD/HScrollBar.max_value-value)
 
 
 # terminate simulation
@@ -56,5 +56,21 @@ func end():
 	for i in $cars.get_children():
 		i.queue_free()
 	genpassed += 1
-	$HUD/Label.text = "Generation: " + str(genpassed)
+	$HUD/GenLabel.text = "Generation: " + str(genpassed)
 	_on_StartButton_pressed()
+
+
+func _on_GenSizeSlider_value_changed(value):
+	$HUD/GenSizeLabel.text = "Generations size = " + str(value)
+	Genetic.gensize = int(value)
+	
+	# reset generations but keep the road
+	genpassed = 0
+	Genetic.generations = []
+	Genetic.generations.append(Genetic.randomgen())
+	Genetic.genfitness = []
+	
+	for i in $cars.get_children():
+		i.queue_free()
+	
+	$HUD/GenLabel.text = "Generation: " + str(genpassed)
