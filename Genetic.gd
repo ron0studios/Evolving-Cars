@@ -14,9 +14,9 @@ func randomgen():# generates a completely random first generation
 	var outgen = []
 	var randomizer = RandomNumberGenerator.new() # to create new seed
 	
-	for i in range(gensize):
+	for _i in range(gensize):
 		var gene = [[],[],[],[],[]] # for one organism
-		for j in range(8):
+		for _j in range(8):
 			gene[0].append(randomizer.randf_range(-1,1)) # x coord
 			gene[1].append(randomizer.randf_range(-1,1)) # y coord
 			gene[2].append(round(randf())) # wheelenabled
@@ -34,7 +34,7 @@ func roulette_selection(set):
 	for i in fitset:
 		wheel += i
 	
-	for i in range(2):
+	for _i in range(2):
 		var pick = rand_range(0,wheel)
 		var current = 0
 		for j in fitset:
@@ -47,7 +47,7 @@ func rand_selection(set, size=2):
 	var selection = []
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	for i in range(size):
+	for _i in range(size):
 		selection.append(set[rng.randi_range(0,gensize-1)])
 	return selection
 
@@ -98,9 +98,9 @@ func tournament_selection(set, tsize):
 		set[i].append(genfitness[-1][i])
 	
 	set.sort_custom(self, "fitcomp")
-	for i in range(2):
+	for _i in range(2):
 		var tournament = []
-		for j in range(tsize):
+		for _j in range(tsize):
 			tournament.append(set[rand_range(0,gensize-1)])
 		
 		tournament.sort_custom(self,"fitcomp")
@@ -152,12 +152,3 @@ func fitness(distance, wheelsum, lifetime):
 
 func _enter_tree():
 	generations.append(randomgen())
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

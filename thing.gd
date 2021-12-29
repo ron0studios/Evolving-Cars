@@ -32,7 +32,7 @@ func _ready():
 		arr.append(Vector2.ZERO)
 		newtriangle.set_polygon(arr)
 		add_child(newtriangle)
-	var newtriangle = CollisionPolygon2D.new()
+	var _newtriangle = CollisionPolygon2D.new()
 	var arr = []
 	arr.append(Vector2(cardata[0][7]*size,cardata[1][7]*size))
 	arr.append(Vector2(cardata[0][0]*size,cardata[1][0]*size))
@@ -56,7 +56,7 @@ func _ready():
 
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	#$debuglabel.text = str(linear_velocity)
 	if linear_velocity.x > 20:
 		$idletimer.stop()
