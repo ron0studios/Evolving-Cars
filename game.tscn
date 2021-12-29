@@ -50,7 +50,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="HUD"]
+[node name="StartButton" type="Button" parent="HUD"]
 margin_left = 32.0
 margin_top = 536.0
 margin_right = 176.0
@@ -101,6 +101,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ResetButton" type="Button" parent="HUD"]
+margin_left = 513.0
+margin_top = 537.0
+margin_right = 630.0
+margin_bottom = 569.0
+text = "Reset"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="cars" type="Node2D" parent="."]
 
 [node name="cam" type="Camera2D" parent="."]
@@ -108,5 +118,6 @@ position = Vector2( 512, 304 )
 current = true
 script = ExtResource( 1 )
 
-[connection signal="pressed" from="HUD/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="HUD/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="value_changed" from="HUD/HScrollBar" to="." method="_on_HScrollBar_value_changed"]
+[connection signal="pressed" from="HUD/ResetButton" to="." method="_on_ResetButton_pressed"]

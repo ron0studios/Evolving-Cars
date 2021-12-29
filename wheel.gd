@@ -11,7 +11,7 @@ func _ready():
 	angular_velocity = turningspeed
 	pass # Replace with function body.
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	angular_velocity = turningspeed
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
