@@ -43,8 +43,8 @@ func _ready():
 		var newwheel = load("res://wheel.tscn").instance()
 		newwheel.position = Vector2(cardata[0][i]*size,cardata[1][i]*size)
 		newwheel.get_node("PinJoint2D").node_a = self.get_path()
-		#if cardata[2][i] == 0:
-		#	continue
+		if cardata[2][i] == 0:
+			continue
 		$wheels.add_child(newwheel)
 		newwheel.mass *= cardata[4][i] # wheel weight
 		newwheel.get_node("CollisionShape2D").scale *= cardata[3][i] # wheel size
