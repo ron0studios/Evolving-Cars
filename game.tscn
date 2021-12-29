@@ -91,6 +91,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="HUD"]
+margin_left = 384.0
+margin_top = 520.0
+margin_right = 472.0
+margin_bottom = 536.0
+text = "Generation: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="cars" type="Node2D" parent="."]
 
 [node name="cam" type="Camera2D" parent="."]

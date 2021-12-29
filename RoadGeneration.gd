@@ -16,7 +16,7 @@ func _input(event):
 		if _pressed:
 			_current_line = Line2D.new()
 			_current_line.default_color = Color.white
-			_current_line.width = 4.0
+			_current_line.width = 10.0
 			self.add_child(_current_line)
 		else:
 			var path_to_line = _current_line.get_path()
