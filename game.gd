@@ -5,13 +5,13 @@ var genpassed = 0
 
 
 func _ready():
-	Engine.time_scale = 3
+	Engine.time_scale = 5
 	
 	# WHY ARE OPTION BUTTONS BROKEY
 	$HUD/FitnessButton.add_item("Balanced", 0)
 	$HUD/FitnessButton.add_item("Balanced but dumb", 1)
-	$HUD/FitnessButton.add_item("Wheels suck", 3)
-	$HUD/FitnessButton.add_item("We like wheels", 2)
+	$HUD/FitnessButton.add_item("Wheels suck", 2)
+	$HUD/FitnessButton.add_item("We like wheels", 3)
 	$HUD/FitnessButton.add_item("Speed demon", 4)
 
 func _physics_process(_delta):

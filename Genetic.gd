@@ -9,7 +9,7 @@ var generations = []
 var genfitness = []
 var gensize = 20 # size per generation
 var fitness_id = 0
-
+var mutate_chance = 0.1
 
 func randomgen():# generates a completely random first generation
 	var outgen = []
@@ -38,8 +38,8 @@ func roulette_selection(set):
 	for _i in range(2):
 		var pick = rand_range(0,wheel)
 		var current = 0
-		for j in fitset:
-			current += j
+		for j in gensize:
+			current += fitset[j]
 			if current > pick:
 				selection.append(set[j])
 	return selection
@@ -114,6 +114,31 @@ func tournament_selection(set, tsize):
 				i.erase(j)
 	return selection
 
+func mutate(set):
+	# x coord mutation
+	for i in set[0]:
+		if randf() <= mutate_chance:
+			i = rand_range(-1,1)
+		
+	# y coord mutation
+	for i in set[1]:
+		if randf() <= mutate_chance:
+			i = rand_range(-1,1)
+	
+	# wheel enabled
+	for i in set[2]:
+		if randf() <= mutate_chance:
+			i = round(randf())
+	
+	# wheel radius
+	for i in set[3]:
+		if randf() <= mutate_chance:
+			i = randf()
+	
+	# wheel weight
+	for i in set[4]:
+		if randf() <= mutate_chance:
+			i = randf()*2
 
 func nextgen(prevgen):
 	var gen = []
@@ -123,18 +148,23 @@ func nextgen(prevgen):
 	gen.append_array(best2)
 	while len(gen) < gensize:
 		var selection = tournament_selection(prevgen,5)
+		#var selection = roulette_selection(prevgen)
 		var crossover = single_point_crossover(selection[0],selection[1])
 		var newchildA = crossover[0]
 		var newchildB = crossover[1]
 		
-		# will do mutation later
-		# MUTATION CODE
-		# MUTATION CODE
-		# MUTATION CODE
+		mutate(newchildA)
+		mutate(newchildB)
 		
 		gen.append(newchildA)
 		gen.append(newchildB)
 	
+	# DEBUG
+	# print average fitness
+	var total_fit = 0
+	for i in genfitness[-1]:
+		total_fit += i
+	print(total_fit/gensize)
 	# set the next generation
 	generations.append(gen)
 
@@ -146,15 +176,15 @@ func fitness(distance, wheelsum, lifetime):
 	
 	match fitness_id:
 		0:
-			return (distance/endpoint) - (lifetime/40) - (wheelsum/8) # all factors
+			return max(0,(4*(distance/endpoint)) - (2*(lifetime/40)) - (2*(wheelsum/8))) # all factors
 		1:
 			return pow(distance,3)-pow(wheelsum*10,2)-pow(lifetime*90,3) # all factors but bad
 		2:
-			return pow(distance,3)-pow(lifetime*90,3) # we dont care about wheels
+			return max(0,(2*(distance/endpoint)) - (2*(lifetime/40))) # we dont care about wheels
 		3:
 			return wheelsum # we like wheels
 		4:
-			return -lifetime # we only care about speed
+			return max(0,30-lifetime) # we only care about speed
 	
 
 func _enter_tree():
