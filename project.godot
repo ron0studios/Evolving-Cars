@@ -20,7 +20,6 @@ Genetic="*res://Genetic.gd"
 
 [display]
 
-window/size/resizable=false
 window/stretch/aspect="keep"
 
 [input]
