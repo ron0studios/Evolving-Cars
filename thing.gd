@@ -6,8 +6,10 @@ export var size = 50
 var cardata
 var finished = false
 var distance
-var lifetime
 var wheelsum = 0
+var speed
+var totalweight = 1
+var bodyvolume = 0
 
 signal done
 # Called when the node enters the scene tree for the first time.
@@ -43,47 +45,48 @@ func _ready():
 		var newwheel = load("res://wheel.tscn").instance()
 		newwheel.position = Vector2(cardata[0][i]*size,cardata[1][i]*size)
 		newwheel.get_node("PinJoint2D").node_a = self.get_path()
-		if cardata[2][i] == 0:
+		
+		
+		if cardata[3][i] < 0.1: # disabled 2nd gene in genome
 			continue
+			
+		
 		$wheels.add_child(newwheel)
-		newwheel.mass *= cardata[4][i] # wheel weight
+		
+		newwheel.gravity_scale *= cardata[4][i] # wheel weight
+		totalweight += cardata[4][i]
+		newwheel.get_node("Sprite").modulate = Color(cardata[4][i]/3,(3.01-cardata[4][i])/3.01,0)
+		
+		newwheel.get_node("Sprite").scale *= cardata[3][i]
 		newwheel.get_node("CollisionShape2D").scale *= cardata[3][i] # wheel size
 		wheelsum += newwheel.get_node("CollisionShape2D").scale.x
 		
 		#newwheel.set_scale(Vector2(cardata[3][i],cardata[3][i]))
-	$idletimer.start()
-	pass # Replace with function body.
-
-
-
-func _physics_process(_delta):
-	
-	
-	#$debuglabel.text = str(linear_velocity)
-	if linear_velocity.x > 20:
-		$idletimer.stop()
-		$idletimer.start()
-	
-	if global_position.x >= get_parent().get_parent().get_node("end").rect_global_position.x and finished == false:
-		emit_signal("done")
-		finished = true
-		distance = get_parent().get_parent().get_node("end").rect_global_position.x
-		lifetime = 1000-$lifetime.time_left 
-		$debuglabel.text = str(lifetime)
-	pass
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_idletimer_timeout():
-	if finished == false:
-		emit_signal("done")
-		finished = true
-	
 		
-		lifetime = 30 # big number
-		distance = global_position.x
-		$debuglabel.text = str(lifetime)
+	
+	# calculate total body volume
+	for i in get_children():
+		if i is CollisionPolygon2D:
+			var a = i.polygon[0].distance_to(i.polygon[1])
+			var b = i.polygon[1].distance_to(i.polygon[2])
+			var c = i.polygon[2].distance_to(i.polygon[0])
+			bodyvolume += calcarea(a,b,c)
+	
 	pass # Replace with function body.
+
+
+# uses heron's formula to calculate area of triangle
+func calcarea(a,b,c):
+	var p = (a+b+c)/2 # half the perimeter
+	return sqrt(p*(p-a)*(p-b)*(p-c))
+
+
+
+func _draw():
+	var colour = [Color(1,0,0,0.5)] 
+	for i in get_children():
+		if i is CollisionPolygon2D:
+			var points = PoolVector2Array()
+			for j in i.polygon:
+				points.append(j)
+			draw_polygon(points,colour)
