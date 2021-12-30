@@ -10,6 +10,9 @@ var genfitness = []
 var gensize = 20 # size per generation
 var fitness_id = 0
 var mutate_chance = 0.05
+var max_life = 15
+
+
 var n_mutations = 0
 
 func randomgen():# generates a completely random first generation
@@ -23,7 +26,7 @@ func randomgen():# generates a completely random first generation
 			gene[1].append(randomizer.randf_range(-1,1)) # y coord
 			gene[2].append(round(randf())) # wheelenabled
 			gene[3].append(randf()) # wheel radius (close to 0 means no wheel)
-			gene[4].append(randf()*2) # wheel weight (0-2x weight) (close to 0 means no weight)
+			gene[4].append((randf()+0.01)*2) # wheel weight (0-2x weight) (close to 0 means no weight)
 		outgen.append(gene)
 	
 	return outgen
@@ -31,7 +34,9 @@ func randomgen():# generates a completely random first generation
 # selects 2 from set
 func roulette_selection(set):
 	var selection = []
-	var fitset = genfitness[-1] # fitness of the last generation
+	var fitset = genfitness[-1].duplicate() # fitness of the last generation
+	
+	
 	var wheel = 0
 	var minval = 999999999999
 	for i in fitset:
@@ -43,9 +48,10 @@ func roulette_selection(set):
 		var pick = rand_range(minval,minval+wheel)
 		var current = minval
 		for j in gensize:
-			current += fitset[j]
+			current += abs(fitset[j])
 			if current >= pick:
 				selection.append(set[j])
+				break
 	
 	
 	return selection
@@ -61,6 +67,21 @@ func rand_selection(set, size=2):
 func single_point_crossover(chrom1, chrom2):
 	var rng = RandomNumberGenerator.new()
 	var crosspoint = rng.randi_range(1,7)
+	
+	var new1 = [[],[],[],[],[]]
+	var new2 = [[],[],[],[],[]]
+	
+	for i in range(len(chrom1)):
+		for j in range(8):
+			if i % 2 == 0:
+				new1[i].append(chrom1[i][j])
+				new2[i].append(chrom1[i][j])
+			else:
+				new1[i].append(chrom2[i][j])
+				new2[i].append(chrom2[i][j])
+	
+	return [new1,new2]
+	
 	for i in range(len(chrom1)): 
 		# chromosome 1
 		var keep = chrom1[i].slice(0,crosspoint-1)
@@ -82,7 +103,10 @@ func elitism_selection(set : Array, amt : int = 2):
 	for i in range(len(set)):
 		set[i].append(genfitness[-1][i])
 	
+	
 	set.sort_custom(self, "fitcomp")
+	
+	
 	for i in range(amt):
 		selection.append(set[i])
 		
@@ -121,7 +145,7 @@ func tournament_selection(set, tsize):
 	return selection
 
 func mutate(gene):
-	var set = gene
+	var set = gene.duplicate()
 	var n_mut = 0
 	
 	# x coord mutation
@@ -151,13 +175,14 @@ func mutate(gene):
 	# wheel weight
 	for i in range(len(set[4])):
 		if randf() <= mutate_chance:
-			set[4][i] = randf()*5
+			set[4][i] = (randf()+0.01)*3
 			n_mut += 1
 
 	n_mutations += n_mut
 	return set
 
-func nextgen(prevgen):
+func nextgen(inp):
+	var prevgen = inp
 	var gen = []
 	
 
@@ -165,9 +190,14 @@ func nextgen(prevgen):
 	var best2 = elitism_selection(prevgen)
 	gen.append_array(best2)
 	while len(gen) < gensize:
-		#var selection = tournament_selection(prevgen,5)
+		#mutate_chance /= sqrt(len(generations)+1)
+		
+		if len(gen) == 4: # DEBUG breakpoint for bug
+			pass
+		#var selection = elitism_selection(prevgen)
+		#var selection = tournament_selection(prevgen,4)
 		var selection = roulette_selection(prevgen)
-		var crossover = single_point_crossover(selection[0],selection[1])
+		var crossover = single_point_crossover(selection[0].duplicate(),selection[1].duplicate())
 		var newchildA = crossover[0]
 		var newchildB = crossover[1]
 		
@@ -188,7 +218,7 @@ func nextgen(prevgen):
 		total_fit += i
 	#print("Total Mutations: ", n_mutations)
 	#print("Total Fitness: ", total_fit/gensize, "\n----------")
-	print(max_fit,"\t\t\t",total_fit)
+	print(stepify(max_fit,0.01),"\t\t\t",stepify(total_fit/gensize,0.01))
 	
 	n_mutations = 0
 	# set the next generation
@@ -197,20 +227,20 @@ func nextgen(prevgen):
 
 # distance: the total distance travelled from start
 # wheelsum: sum of sizes of all wheels (we want to minimize)
-func fitness(distance, wheelsum, lifetime):
+func fitness(distance, wheelsum, bodyvolume, weight):
 	var endpoint = get_tree().get_root().get_node("game/end").rect_global_position.x
 	
 	match fitness_id:
-		0:
-			return max(0,(4*(distance/endpoint)) - (2*(lifetime/40)) - (1.5*(wheelsum/8))) # all factors
-		1:
-			return pow(distance,3)-pow(wheelsum*10,2)-pow(lifetime*90,3) # all factors but bad
-		2:
-			return max(0,(2*(distance/endpoint)) - (2*(lifetime/40))) # we dont care about wheels
-		3:
-			return wheelsum # we like wheels
-		4:
-			return max(0,30-lifetime) # we only care about speed
+		0: # balanced
+			return pow(distance,2) - pow(wheelsum*30,3) 
+		1: # volume
+			return -bodyvolume
+		2: # wheels
+			return wheelsum
+		3: # distance
+			return distance
+		4: # weight
+			return weight
 	
 
 func _enter_tree():

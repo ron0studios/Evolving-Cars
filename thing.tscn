@@ -11,6 +11,7 @@ size = 100
 
 [node name="Collider" type="CollisionPolygon2D" parent="."]
 build_mode = 1
+polygon = PoolVector2Array( 0, 0, 0, 0, 0, 0 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 8.0
@@ -29,14 +30,3 @@ margin_bottom = -72.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="idletimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[node name="lifetime" type="Timer" parent="."]
-wait_time = 1000.0
-one_shot = true
-autostart = true
-
-[connection signal="timeout" from="idletimer" to="." method="_on_idletimer_timeout"]

@@ -9,20 +9,17 @@ func _ready():
 	
 	# WHY ARE OPTION BUTTONS BROKEY
 	$HUD/FitnessButton.add_item("Balanced", 0)
-	$HUD/FitnessButton.add_item("Balanced but dumb", 1)
-	$HUD/FitnessButton.add_item("Wheels suck", 2)
-	$HUD/FitnessButton.add_item("We like wheels", 3)
-	$HUD/FitnessButton.add_item("Speed demon", 4)
+	$HUD/FitnessButton.add_item("Minimize volume", 1)
+	$HUD/FitnessButton.add_item("Maximize wheels", 2)
+	$HUD/FitnessButton.add_item("Maximize distance", 3)
+	$HUD/FitnessButton.add_item("Maximize weight", 4)
+	
+	
+	
 
 func _physics_process(_delta):
-	# num cars that have finished
-	var donecount = 0
-	for i in $cars.get_children():
-		if i.finished == true:
-			donecount += 1
-	if donecount == Genetic.gensize:
-		end()
-		
+	$HUD/gentimelabel.text = "Time left: " + str(stepify($gentimelimit.time_left,0.01))
+	
 	if Input.is_key_pressed(KEY_Q):
 		if $cam.zoom.x >= 0.2:
 			$cam.zoom -= Vector2(0.1,0.1)
@@ -43,10 +40,15 @@ func _physics_process(_delta):
 		$cam.position.y -= 15
 	elif Input.is_key_pressed(KEY_S):
 		$cam.position.y += 15
+		
+		
+	
 
 
 
 func _on_StartButton_pressed():
+	$gentimelimit.wait_time = Genetic.max_life
+	$gentimelimit.start()
 	for i in range(Genetic.gensize):
 		var newthing = preload("res://thing.tscn").instance()
 		newthing.cardata = Genetic.generations[-1][i]
@@ -59,12 +61,14 @@ func _on_ResetButton_pressed():
 	Genetic.generations = []
 	Genetic.generations.append(Genetic.randomgen())
 	Genetic.genfitness = []
+	
 	for i in $cars.get_children():
 		i.queue_free()
 	
 	for i in $RoadGeneration.get_children():
 		i.queue_free()
 	
+	$gentimelimit.stop()
 	$HUD/GenLabel.text = "Generation: " + str(genpassed)
 
 
@@ -77,7 +81,11 @@ func _on_HScrollBar_value_changed(value):
 func end():
 	var all = []
 	for i in $cars.get_children():
-		all.append(Genetic.fitness(i.distance,i.wheelsum,i.lifetime))
+		var distance = i.global_position.x - $start.rect_global_position.x
+		var wheelsum = i.wheelsum
+		var bodyvolume = i.bodyvolume
+		var weight = i.totalweight
+		all.append(Genetic.fitness(distance,wheelsum,bodyvolume,weight))
 	Genetic.genfitness.append(all)
 	
 	Genetic.nextgen(Genetic.generations[-1])
@@ -108,3 +116,9 @@ func _on_GenSizeSlider_value_changed(value):
 
 func _on_FitnessButton_item_selected(index):
 	Genetic.fitness_id = index
+
+
+
+func _on_gentimelimit_timeout():
+	end()
+	pass # Replace with function body.
