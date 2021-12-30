@@ -83,7 +83,7 @@ func calcarea(a,b,c):
 
 
 func _draw():
-	var colour = [Color(1,0,0,0.5)] 
+	var colour = [Color(rand_range(0,1),rand_range(0,1),rand_range(0,1),0.5)] 
 	for i in get_children():
 		if i is CollisionPolygon2D:
 			var points = PoolVector2Array()

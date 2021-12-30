@@ -5,14 +5,16 @@ var genpassed = 0
 
 
 func _ready():
-	Engine.time_scale = 5
+	Engine.time_scale = 3
 	
 	# WHY ARE OPTION BUTTONS BROKEY
-	$HUD/FitnessButton.add_item("Balanced", 0)
+	$HUD/FitnessButton.add_item("Maximize distance", 3)
 	$HUD/FitnessButton.add_item("Minimize volume", 1)
 	$HUD/FitnessButton.add_item("Maximize wheels", 2)
-	$HUD/FitnessButton.add_item("Maximize distance", 3)
+	$HUD/FitnessButton.add_item("balamced", 0)
 	$HUD/FitnessButton.add_item("Maximize weight", 4)
+	
+	$HUD/Label.text = "MAX LIFE: "+ str(Genetic.max_life)
 	
 	
 	
@@ -121,4 +123,17 @@ func _on_FitnessButton_item_selected(index):
 
 func _on_gentimelimit_timeout():
 	end()
+	pass # Replace with function body.
+
+
+func _on_lifetime_value_changed(value):
+	Genetic.max_life = value
+	$HUD/Label.text = "MAX LIFE: "+ str(Genetic.max_life)
+	_on_ResetButton_pressed()
+	pass # Replace with function body.
+
+
+func _on_HScrollBar2_value_changed(value):
+	$HUD/Label2.text = "Time scale: " + str(value)
+	Engine.time_scale = value
 	pass # Replace with function body.
