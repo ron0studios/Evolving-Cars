@@ -196,7 +196,7 @@ margin_left = 904.0
 margin_top = 536.0
 margin_right = 980.0
 margin_bottom = 556.0
-text = "Time scale: 1"
+text = "Time scale: 3"
 __meta__ = {
 "_edit_use_anchors_": false
 }
