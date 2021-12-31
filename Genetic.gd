@@ -228,7 +228,7 @@ func nextgen(inp):
 # distance: the total distance travelled from start
 # wheelsum: sum of sizes of all wheels (we want to minimize)
 func fitness(distance, wheelsum, bodyvolume, weight):
-	var endpoint = get_tree().get_root().get_node("game/end").rect_global_position.x
+	
 	
 	match fitness_id:
 		0: # balanced

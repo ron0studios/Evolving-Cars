@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://cam.gd" type="Script" id=1]
 [ext_resource path="res://RoadGeneration.gd" type="Script" id=2]
 [ext_resource path="res://game.gd" type="Script" id=3]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -11,10 +10,21 @@ glow_enabled = true
 glow_bloom = 0.27
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10000, 100 )
+extents = Vector2( 10008.1, 98.7132 )
 
 [node name="game" type="Node2D"]
 script = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.211765, 0.211765, 0.243137, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="look-goodifier" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
@@ -34,16 +44,183 @@ __meta__ = {
 }
 
 [node name="end" type="ColorRect" parent="."]
-margin_left = 2032.0
+margin_left = 2500.0
 margin_top = 320.0
-margin_right = 2048.0
+margin_right = 2516.0
 margin_bottom = 336.0
 color = Color( 0.67451, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HUD" parent="." instance=ExtResource( 4 )]
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+margin_left = 1.05951
+margin_top = 2.39825
+margin_right = 1025.06
+margin_bottom = 90.3983
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="HUD"]
+margin_left = 33.0595
+margin_top = 26.3983
+margin_right = 177.06
+margin_bottom = 58.3983
+text = "Start generation"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetButton" type="Button" parent="HUD"]
+margin_left = 192.06
+margin_top = 26.3983
+margin_right = 309.06
+margin_bottom = 58.3983
+text = "Reset"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GenSizeLabel" type="Label" parent="HUD"]
+margin_left = 336.06
+margin_top = 16.3983
+margin_right = 469.06
+margin_bottom = 30.3983
+text = "Generation size = 20"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GenSizeSlider" type="HSlider" parent="HUD"]
+margin_left = 337.06
+margin_top = 33.3983
+margin_right = 472.06
+margin_bottom = 49.3983
+min_value = 7.0
+max_value = 50.0
+value = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ZoomLabel" type="Label" parent="HUD"]
+margin_left = 530.06
+margin_top = 41.3983
+margin_right = 642.06
+margin_bottom = 65.3983
+text = "Zoom = 1.0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HScrollBar" type="HScrollBar" parent="HUD"]
+margin_left = 522.06
+margin_top = 57.3983
+margin_right = 650.06
+margin_bottom = 73.3983
+min_value = 0.1
+max_value = 5.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GenLabel" type="Label" parent="HUD"]
+margin_left = 528.06
+margin_top = 14.3983
+margin_right = 616.06
+margin_bottom = 30.3983
+text = "Generation: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="HUD"]
+margin_left = 921.06
+margin_top = 10.3983
+margin_right = 1017.06
+margin_bottom = 50.3983
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FitnessButton" type="OptionButton" parent="HUD"]
+margin_left = 336.06
+margin_top = 55.3983
+margin_right = 506.06
+margin_bottom = 75.3983
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gentimelabel" type="Label" parent="HUD"]
+margin_left = 801.126
+margin_top = 5.44852
+margin_right = 937.126
+margin_bottom = 37.4485
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lifetime" type="HScrollBar" parent="HUD"]
+margin_left = 705.06
+margin_top = 58.3983
+margin_right = 865.06
+margin_bottom = 82.3983
+min_value = 2.0
+step = 1.0
+value = 15.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD"]
+margin_left = 729.06
+margin_top = 42.3983
+margin_right = 827.06
+margin_bottom = 66.3983
+text = "MAX LIFETIME: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HScrollBar2" type="HScrollBar" parent="HUD"]
+margin_left = 897.767
+margin_top = 63.8333
+margin_right = 997.767
+margin_bottom = 83.8333
+min_value = 1.0
+max_value = 10.0
+step = 1.0
+value = 3.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="HUD"]
+margin_left = 905.06
+margin_top = 41.9546
+margin_right = 990.06
+margin_bottom = 61.9546
+text = "Time scale: 3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="viewbest" type="CheckButton" parent="HUD"]
+margin_left = 633.378
+margin_top = 3.10535
+margin_right = 806.378
+margin_bottom = 43.1053
+text = "View best only"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="cars" type="Node2D" parent="."]
 
@@ -74,4 +251,12 @@ __meta__ = {
 process_mode = 0
 one_shot = true
 
+[connection signal="pressed" from="HUD/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="HUD/ResetButton" to="." method="_on_ResetButton_pressed"]
+[connection signal="value_changed" from="HUD/GenSizeSlider" to="." method="_on_GenSizeSlider_value_changed"]
+[connection signal="value_changed" from="HUD/HScrollBar" to="." method="_on_HScrollBar_value_changed"]
+[connection signal="item_selected" from="HUD/FitnessButton" to="." method="_on_FitnessButton_item_selected"]
+[connection signal="value_changed" from="HUD/lifetime" to="." method="_on_lifetime_value_changed"]
+[connection signal="value_changed" from="HUD/HScrollBar2" to="." method="_on_HScrollBar2_value_changed"]
+[connection signal="toggled" from="HUD/viewbest" to="." method="_on_viewbest_toggled"]
 [connection signal="timeout" from="gentimelimit" to="." method="_on_gentimelimit_timeout"]

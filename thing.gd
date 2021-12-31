@@ -6,10 +6,11 @@ export var size = 50
 var cardata
 var finished = false
 var distance
-var bodyvolume = 1 # DEBUG these are only here to prevent an error when calculating fitness
-var totalweight = 1 # DEBUG these are only here to prevent an error when calculating fitness
 var lifetime
 var wheelsum = 0
+var speed
+var totalweight = 1
+var bodyvolume = 0
 
 signal done
 # Called when the node enters the scene tree for the first time.
@@ -64,16 +65,41 @@ func _ready():
 		var newwheel = load("res://wheel.tscn").instance()
 		newwheel.position = Vector2(cardata[0][i]*size,cardata[1][i]*size)
 		newwheel.get_node("PinJoint2D").node_a = self.get_path()
-		if cardata[2][i] == 0:
+		
+		
+		if cardata[3][i] < 0.1: # disabled 2nd gene in genome
 			continue
+			
+		
 		$wheels.add_child(newwheel)
-		newwheel.mass *= cardata[4][i] # wheel weight
+		
+		newwheel.gravity_scale *= cardata[4][i] # wheel weight
+		totalweight += cardata[4][i]
+		newwheel.get_node("Sprite").modulate = Color(cardata[4][i]/3,(3.01-cardata[4][i])/3.01,0)
+		
+		newwheel.get_node("Sprite").scale *= cardata[3][i]
 		newwheel.get_node("CollisionShape2D").scale *= cardata[3][i] # wheel size
 		wheelsum += newwheel.get_node("CollisionShape2D").scale.x
 		
 		#newwheel.set_scale(Vector2(cardata[3][i],cardata[3][i]))
 	$idletimer.start()
+		
+	
+	# calculate total body volume
+	for i in get_children():
+		if i is CollisionPolygon2D:
+			var a = i.polygon[0].distance_to(i.polygon[1])
+			var b = i.polygon[1].distance_to(i.polygon[2])
+			var c = i.polygon[2].distance_to(i.polygon[0])
+			bodyvolume += calcarea(a,b,c)
+	
+	pass # Replace with function body.
 
+
+# uses heron's formula to calculate area of triangle
+func calcarea(a,b,c):
+	var p = (a+b+c)/2 # half the perimeter
+	return sqrt(p*(p-a)*(p-b)*(p-c))
 
 func _physics_process(_delta):
 	
