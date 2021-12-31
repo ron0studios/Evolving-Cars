@@ -46,12 +46,16 @@ These parameters will be explained in detail later in the text, but with them yo
 ## Program in action!
 
 ![image](https://user-images.githubusercontent.com/47331292/147823993-6ddd2e87-d312-4231-8a14-5953cc15d263.png)
+![image](https://user-images.githubusercontent.com/47331292/147831645-4bd75e44-f484-408f-bb84-b2dd9870216f.png)
 
-*The best AI after 100 generations of climbing a 40° angled slope. It tries to make itself heavier to grip with the floor*
+*The best AI after 100 generations of climbing a 40° angled slope. It tries to make itself heavier or lower its center of gravity to grip with the floor*
 
 ![image](https://user-images.githubusercontent.com/47331292/147824364-7010e388-2454-4671-91b8-a6a770ea4568.png)
+![image](https://user-images.githubusercontent.com/47331292/147832313-c0f87060-807f-4054-bc3f-3c7692646b8f.png)
 
-*The best AI after 50 or so generations of descending 60° downward slope. Again, it tries to make itself heavier + having a low center of gravity, but it also tries to be faster by having bigger wheels*
+*The best AI after 50 or so generations of descending 60° downward slope. Again, it tries to make itself heavier + having a low center of gravity, but it also tries to be faster by having bigger front wheels.*
+
+*Other AI in this course adapted multiple wheels around the entire body, to maximize rolling effectiveness, whilst keeping themselves heavy to stay on the ground!*
 
 ![image](https://user-images.githubusercontent.com/47331292/147825500-b1481181-f8d0-42a3-a8d7-b53b242a394a.png)
 
