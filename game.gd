@@ -67,6 +67,10 @@ func _physics_process(_delta):
 func _on_StartButton_pressed():
 	$gentimelimit.wait_time = Genetic.max_life
 	$gentimelimit.start()
+	if genpassed == 0:
+		Genetic.generations = []
+		Genetic.generations.append(Genetic.randomgen())
+		
 	for i in range(Genetic.gensize):
 		var newthing = preload("res://thing.tscn").instance()
 		newthing.cardata = Genetic.generations[-1][i]
