@@ -43,4 +43,18 @@ These parameters will be explained in detail later in the text, but with them yo
 
 ## Program in action!
 
-*To be added*
+![image](https://user-images.githubusercontent.com/47331292/147823993-6ddd2e87-d312-4231-8a14-5953cc15d263.png)
+
+*The best AI after 100 generations of climbing a 40° angled slope. It tries to make itself heavier to grip with the floor*
+
+![image](https://user-images.githubusercontent.com/47331292/147824364-7010e388-2454-4671-91b8-a6a770ea4568.png)
+
+*The best AI after 50 or so generations of descending 60° downward slope. Again, it tries to make itself heavier + having a low center of gravity, but it also tries to be faster by having bigger wheels*
+
+![image](https://user-images.githubusercontent.com/47331292/147825500-b1481181-f8d0-42a3-a8d7-b53b242a394a.png)
+
+*The best AI after 30 generations making a jump! This AI is extremely lightweight, to help go further*
+
+
+
+
