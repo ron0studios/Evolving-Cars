@@ -2,7 +2,7 @@ extends Node2D
 
 
 var genpassed = 0
-
+var viewbest = false
 
 func _ready():
 	Engine.time_scale = 3
@@ -43,7 +43,23 @@ func _physics_process(_delta):
 	elif Input.is_key_pressed(KEY_S):
 		$cam.position.y += 15
 		
+	if viewbest:
+		var bestcardistance = -10000
+		var bestcar
+		for i in $cars.get_children():
+			if i.global_position.x - $start.rect_global_position.x >= bestcardistance:
+				bestcardistance = i.global_position.x - $start.rect_global_position.x 
+				bestcar = i
+			
+				
+		for i in $cars.get_children():
+			i.modulate = Color(1,1,1,0.1)
+		if bestcar:
+			bestcar.modulate = Color(1,1,1,1)
 		
+	else:
+		for i in $cars.get_children():
+			i.modulate = Color(1,1,1,1)
 	
 
 
@@ -54,6 +70,10 @@ func _on_StartButton_pressed():
 	for i in range(Genetic.gensize):
 		var newthing = preload("res://thing.tscn").instance()
 		newthing.cardata = Genetic.generations[-1][i]
+		
+		if viewbest:
+			newthing.modulate = Color(1,1,1,0.1)
+		
 		newthing.call_deferred("set_global_position",Vector2(184,320))
 		$cars.call_deferred("add_child",newthing)
 
@@ -136,4 +156,9 @@ func _on_lifetime_value_changed(value):
 func _on_HScrollBar2_value_changed(value):
 	$HUD/Label2.text = "Time scale: " + str(value)
 	Engine.time_scale = value
+	pass # Replace with function body.
+
+
+func _on_viewbest_toggled(button_pressed):
+	viewbest = button_pressed
 	pass # Replace with function body.

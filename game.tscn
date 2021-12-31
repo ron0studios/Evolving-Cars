@@ -201,6 +201,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="viewbest" type="CheckButton" parent="HUD"]
+margin_left = 720.0
+margin_top = 512.0
+margin_right = 893.0
+margin_bottom = 552.0
+text = "View best only"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="cars" type="Node2D" parent="."]
 
 [node name="cam" type="Camera2D" parent="."]
@@ -239,4 +249,5 @@ one_shot = true
 [connection signal="item_selected" from="HUD/FitnessButton" to="." method="_on_FitnessButton_item_selected"]
 [connection signal="value_changed" from="HUD/lifetime" to="." method="_on_lifetime_value_changed"]
 [connection signal="value_changed" from="HUD/HScrollBar2" to="." method="_on_HScrollBar2_value_changed"]
+[connection signal="toggled" from="HUD/viewbest" to="." method="_on_viewbest_toggled"]
 [connection signal="timeout" from="gentimelimit" to="." method="_on_gentimelimit_timeout"]
