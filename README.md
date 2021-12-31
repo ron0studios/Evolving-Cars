@@ -55,6 +55,12 @@ These parameters will be explained in detail later in the text, but with them yo
 
 *The best AI after 30 generations making a jump! This AI is extremely lightweight, to help go further*
 
+![image](https://user-images.githubusercontent.com/47331292/147825584-a590bdac-0663-462d-8f52-2dd37c2967d6.png)
 
+*Another AI making a jump! This one has a center of gravity at the back so it lands quickly after the jump to go further!*
+
+![image](https://user-images.githubusercontent.com/47331292/147827001-3da7b41e-447d-4676-b9fc-8dfd734fc9e8.png)
+
+*A nearly perfectly straight track. The best AI after nearly 300 generations took an odd car body shape, but the wheels are incredibly heavy, to maximize traction with the ground, and the center of gravity is as low as possible*
 
 
