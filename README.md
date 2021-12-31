@@ -52,6 +52,8 @@ These parameters will be explained in detail later in the text, but with them yo
 
 ![image](https://user-images.githubusercontent.com/47331292/147824364-7010e388-2454-4671-91b8-a6a770ea4568.png)
 ![image](https://user-images.githubusercontent.com/47331292/147832313-c0f87060-807f-4054-bc3f-3c7692646b8f.png)
+![image](https://user-images.githubusercontent.com/47331292/147832528-dc952046-70f8-4d93-8e6b-c7f0aaed103b.png)
+
 
 *The best AI after 50 or so generations of descending 60° downward slope. Again, it tries to make itself heavier + having a low center of gravity, but it also tries to be faster by having bigger front wheels.*
 
