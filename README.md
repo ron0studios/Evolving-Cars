@@ -65,4 +65,6 @@ These parameters will be explained in detail later in the text, but with them yo
 
 *A nearly perfectly straight track. The best AI after nearly 300 generations took an odd car body shape, but the wheels are incredibly heavy, to maximize traction with the ground, and the center of gravity is as low as possible*
 
+![image](https://user-images.githubusercontent.com/47331292/147827927-11f5f3ad-46ab-4ad8-8451-1dcb77248c91.png)
 
+*The best AI after 50 generations crossing terrain with gaps. As we expected, there would be bigger wheels, but the top cars also managed to create a tank-like tracks to effectively create a bigger wheel! The AI had a higher weight, to increase traction.* 
