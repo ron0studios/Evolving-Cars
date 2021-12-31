@@ -10,7 +10,7 @@ var genfitness = []
 var gensize = 20 # size per generation
 var fitness_id = 0
 var mutate_chance = 0.05
-var max_life = 15
+var max_life = 30
 
 
 var n_mutations = 0

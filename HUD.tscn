@@ -1,0 +1,136 @@
+[gd_scene format=2]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -100.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 24.6942
+margin_top = -63.429
+margin_right = 168.694
+margin_bottom = -31.429
+text = "Start generation"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetButton" type="Button" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 182.961
+margin_top = -61.1841
+margin_right = 299.961
+margin_bottom = -29.1841
+text = "Reset"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GenSizeLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 335.616
+margin_top = -84.7151
+margin_right = 468.616
+margin_bottom = -70.7151
+text = "Generation size = 20"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GenSizeSlider" type="HSlider" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 338.983
+margin_top = -60.8984
+margin_right = 473.983
+margin_bottom = -44.8984
+min_value = 7.0
+max_value = 50.0
+value = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ZoomLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 523.067
+margin_top = -57.6738
+margin_right = 635.067
+margin_bottom = -33.6738
+text = "Zoom = 1.0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HScrollBar" type="HScrollBar" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 521.945
+margin_top = -32.8369
+margin_right = 649.945
+margin_bottom = -16.8369
+min_value = 0.1
+max_value = 5.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GenLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 521.945
+margin_top = -83.3477
+margin_right = 609.945
+margin_bottom = -67.3477
+text = "Generation: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -104.98
+margin_top = -91.6333
+margin_right = -8.97974
+margin_bottom = -51.6333
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FitnessButton" type="OptionButton" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 334.494
+margin_top = -34.592
+margin_right = 504.494
+margin_bottom = -14.592
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gentimelabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 664.498
+margin_top = -90.368
+margin_right = 800.498
+margin_bottom = -58.368
+__meta__ = {
+"_edit_use_anchors_": false
+}

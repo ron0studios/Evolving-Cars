@@ -25,11 +25,11 @@ func _physics_process(_delta):
 			$cam.zoom -= Vector2(0.1,0.1)
 		else:
 			$cam.zoom = Vector2(0.1,0.1)
-		$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
+		$HUD/ZoomLabel.text = "Zoom: "+ str($cam.zoom).split(',')[0].substr(1, -1)
 		$HUD/HScrollBar.value = $cam.zoom.x
 	elif Input.is_key_pressed(KEY_E):
 		$cam.zoom += Vector2(0.1,0.1)
-		$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
+		$HUD/ZoomLabel.text = "Zoom: "+ str($cam.zoom).split(',')[0].substr(1, -1)
 		$HUD/HScrollBar.value = $cam.zoom.x
 		
 	if Input.is_key_pressed(KEY_D):

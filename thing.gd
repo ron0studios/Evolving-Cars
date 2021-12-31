@@ -6,6 +6,8 @@ export var size = 50
 var cardata
 var finished = false
 var distance
+var bodyvolume = 1 # DEBUG these are only here to prevent an error when calculating fitness
+var totalweight = 1 # DEBUG these are only here to prevent an error when calculating fitness
 var lifetime
 var wheelsum = 0
 
@@ -15,6 +17,21 @@ func _ready():
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()
 
+	# rand colour for this car
+	var red = rand.randf_range(0, 1)
+	rand.randomize()
+	var green = rand.randf_range(0, 1)
+	rand.randomize()
+	var blue = rand.randf_range(0, 1)
+	rand.randomize()
+	
+	# this generates a nice pastel colour, not a horrid looking one
+	var mix = [1, 1, 1]
+	red = (red + mix[0]) / 2
+	green = (green + mix[1]) / 2
+	blue = (blue + mix[2]) / 2
+	# alpha to 0.7 so multiple cars can be seen on top of each other
+	var colour = Color(red, green, blue, 0.7)
 
 	# EXAMPLE SHAPE (for testing)
 	#testagon.append(Vector2(0,0))
@@ -26,12 +43,16 @@ func _ready():
 	# add polygons
 	for i in range(7):
 		var newtriangle = CollisionPolygon2D.new()
+		var polygonSprite = Polygon2D.new()
 		var arr = []
 		arr.append(Vector2(cardata[0][i]*size,cardata[1][i]*size))
 		arr.append(Vector2(cardata[0][i+1]*size,cardata[1][i+1]*size))
 		arr.append(Vector2.ZERO)
 		newtriangle.set_polygon(arr)
+		polygonSprite.set_polygon(arr)
+		polygonSprite.color = colour
 		add_child(newtriangle)
+		add_child(polygonSprite)
 	var _newtriangle = CollisionPolygon2D.new()
 	var arr = []
 	arr.append(Vector2(cardata[0][7]*size,cardata[1][7]*size))
@@ -52,8 +73,6 @@ func _ready():
 		
 		#newwheel.set_scale(Vector2(cardata[3][i],cardata[3][i]))
 	$idletimer.start()
-	pass # Replace with function body.
-
 
 
 func _physics_process(_delta):
@@ -68,13 +87,8 @@ func _physics_process(_delta):
 		emit_signal("done")
 		finished = true
 		distance = get_parent().get_parent().get_node("end").rect_global_position.x
-		lifetime = 1000-$lifetime.time_left 
+		lifetime = 1000-$idletimer.time_left 
 		$debuglabel.text = str(lifetime)
-	pass
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_idletimer_timeout():
@@ -86,4 +100,3 @@ func _on_idletimer_timeout():
 		lifetime = 30 # big number
 		distance = global_position.x
 		$debuglabel.text = str(lifetime)
-	pass # Replace with function body.
