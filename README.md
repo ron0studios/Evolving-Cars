@@ -16,6 +16,8 @@ These parameters will be explained in detail later in the text, but with them yo
 
 **Q** to zoom in, **E** to zoom out
 
+*The redder the wheels, the heavier they are!*
+
 ---
 
 ## Parameters
