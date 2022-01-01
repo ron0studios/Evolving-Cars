@@ -44,6 +44,10 @@ These parameters will be explained in detail later in the text, but with them yo
 ---
 
 ## Terminal output:
+
+![image](https://user-images.githubusercontent.com/47331292/147858399-1279dde1-60a9-4540-8de0-7d08cc8e5845.png)
+![image](https://user-images.githubusercontent.com/47331292/147858250-b33282fc-8081-41bf-ad81-4cecd36ae3c5.png)
+
 If you run the program via the terminal, you will notice 2 numbers in every line being outputted to the terminal in each generation. The first number refers to the highest scoring individual in that generation, and the second number refers to the average fitness score of that generation. Use these numbers to draw a graph and see fitness over time!
 
 ---
