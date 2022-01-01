@@ -84,3 +84,7 @@ If you run the program via the terminal, you will notice 2 numbers in every line
 ![image](https://user-images.githubusercontent.com/47331292/147828163-81e7356d-2fac-4fb0-bc5c-b2c7f55c9052.png)
 
 *The best AI's after 50 generations crossing terrain with gaps. As we expected, there would be bigger wheels, but the top cars also managed to create a tank-like tracks to effectively create a bigger wheel! The AI had a higher weight, to increase traction.* 
+
+![image](https://user-images.githubusercontent.com/47331292/147858902-9d0d2380-22fb-46f2-96a2-87583706abc7.png)
+
+*This one's a very bumpy track. The AI developed a center of gravity close to the middle of the car and had wheels all throughout to thrust off of the bumps!*
