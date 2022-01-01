@@ -88,3 +88,16 @@ If you run the program via the terminal, you will notice 2 numbers in every line
 ![image](https://user-images.githubusercontent.com/47331292/147858902-9d0d2380-22fb-46f2-96a2-87583706abc7.png)
 
 *This one's a very bumpy track. The AI developed a center of gravity close to the middle of the car and had wheels all throughout to thrust off of the bumps!*
+
+---
+
+## Limitations
+
+There are some current limitations to the project. In terms of the program itself, running generations of size 50 can cause extreme lag for the first second of loading, due to creating unique objects each time. 
+
+There's also the issue with *exploitation* happening too early on in the algorithm. In the machine-learning world, this is the same issue as over-fitting somewhat. For more difficult courses, such as jumps or obstacles, there tends to be large periods of low fitness:
+![image](https://user-images.githubusercontent.com/47331292/147859198-97523536-855f-40f8-996e-af5155d2fc34.png)
+
+Although there is a general upward trend, this large gap early on in the learning process is due to the exploitation of a certain car body which allowed for the AI to go far faster than its competitors. Due to elitism, this AI stayed for a while until it was randomly mutated, leading to a sharp drop (atleast that's what we think it is). 
+
+This means that the algorithm won't converge very easily for more difficult scenarios. A solution to this would be to add decaying mutation rates or to find a better crossover function. But that's a long-term goal :-)
