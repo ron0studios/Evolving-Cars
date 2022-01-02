@@ -101,3 +101,13 @@ There's also the issue with *exploitation* happening too early on in the algorit
 Although there is a general upward trend, this large gap early on in the learning process is due to the exploitation of a certain car body which allowed for the AI to go far faster than its competitors. Due to elitism, this AI stayed for a while until it was randomly mutated, leading to a sharp drop (atleast that's what we think it is). 
 
 This means that the algorithm won't converge very easily for more difficult scenarios. A solution to this would be to add decaying mutation rates or to find a better crossover function. But that's a long-term goal :-)
+
+---
+
+## Exploitation vs exploration
+
+A benefit of this algorithm is that it continuously explores for different options throughout the simulation. Take a look at this graph of fitness over time:
+
+![image](https://user-images.githubusercontent.com/47331292/147881129-31221003-fdca-4c1d-9e7a-9642dd93ac1b.png)
+
+As you can see, the highest scoring AI does increaases more or so steadily over generations, whilst the average is constantly fluctuating. This can show the algorithm to be consistently mutating/finding new solutions without harming previous results, due to partial elitism selection. Whilst better methods DO exist, this is the best we could come up with in the duration of the hackathon (4 days). 
