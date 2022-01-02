@@ -54,6 +54,9 @@ If you run the program via the terminal, you will notice 2 numbers in every line
 
 ## Program in action!
 
+<details><summary>See images!</summary>
+<p>
+
 ![image](https://user-images.githubusercontent.com/47331292/147823993-6ddd2e87-d312-4231-8a14-5953cc15d263.png)
 ![image](https://user-images.githubusercontent.com/47331292/147831645-4bd75e44-f484-408f-bb84-b2dd9870216f.png)
 
@@ -89,6 +92,9 @@ If you run the program via the terminal, you will notice 2 numbers in every line
 
 *This one's a very bumpy track. The AI developed a center of gravity close to the middle of the car and had wheels all throughout to thrust off of the bumps!*
 
+  </p>
+  </details>
+  
 ---
 
 ## Limitations
