@@ -10,7 +10,7 @@ export (Array, NodePath) var lines_to_follow = [NodePath("Line2D")]
 
 
 func _input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.position.y < 512:
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		_pressed = event.pressed
 		
 		if _pressed:
@@ -28,10 +28,10 @@ func _input(event):
 				translated_points.append(line.points[i] + line.position)
 			line_points.append_array(translated_points)
 			num_segments += len(line.points)
-			line_points.append(Vector2(419430.4, 419430.4))
-			for current_segment in range(0, num_segments):
-				if line_points[current_segment+1] == Vector2(419430.4, 419430.4) or line_points[current_segment] == Vector2(419430.4, 419430.4):
-					continue
+			#line_points.append(Vector2(419430.4, 419430.4))
+			for current_segment in range(0, num_segments-1):
+				#if line_points[current_segment+1] == Vector2(419430.4, 419430.4) or line_points[current_segment] == Vector2(419430.4, 419430.4):
+				#	continue
 				var segment_collider := CollisionShape2D.new()
 				segment_collider.shape = SegmentShape2D.new()
 				segment_collider.shape.a = line_points[current_segment]

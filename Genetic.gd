@@ -10,7 +10,7 @@ var genfitness = []
 var gensize = 20 # size per generation
 var fitness_id = 0
 var mutate_chance = 0.05
-var max_life = 15
+var max_life = 30
 
 
 var n_mutations = 0
@@ -44,7 +44,7 @@ func roulette_selection(set):
 			minval = i
 		wheel += abs(i)
 	
-	for i in range(2):
+	for _i in range(2):
 		var pick = rand_range(minval,minval+wheel)
 		var current = minval
 		for j in gensize:
@@ -82,6 +82,7 @@ func single_point_crossover(chrom1, chrom2):
 	
 	return [new1,new2]
 	
+	# alternative code
 	for i in range(len(chrom1)): 
 		# chromosome 1
 		var keep = chrom1[i].slice(0,crosspoint-1)

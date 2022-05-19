@@ -27,11 +27,11 @@ func _physics_process(_delta):
 			$cam.zoom -= Vector2(0.1,0.1)
 		else:
 			$cam.zoom = Vector2(0.1,0.1)
-		$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
+		$HUD/ZoomLabel.text = "Zoom: "+ str($cam.zoom).split(',')[0].substr(1, 5)
 		$HUD/HScrollBar.value = $cam.zoom.x
 	elif Input.is_key_pressed(KEY_E):
 		$cam.zoom += Vector2(0.1,0.1)
-		$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
+		$HUD/ZoomLabel.text = "Zoom: "+ str($cam.zoom).split(',')[0].substr(1, 5)
 		$HUD/HScrollBar.value = $cam.zoom.x
 		
 	if Input.is_key_pressed(KEY_D):
@@ -106,7 +106,7 @@ func resetGen():
 
 func _on_HScrollBar_value_changed(value):
 	$cam.zoom = Vector2(value,value)
-	$HUD/ZoomLabel.text = "Zoom: "+str($cam.zoom)
+	$HUD/ZoomLabel.text = "Zoom: "+ str($cam.zoom).split(',')[0].substr(1, 5)
 
 
 # terminate simulation
@@ -153,22 +153,18 @@ func _on_FitnessButton_item_selected(index):
 
 func _on_gentimelimit_timeout():
 	end()
-	pass # Replace with function body.
 
 
 func _on_lifetime_value_changed(value):
 	Genetic.max_life = value
 	$HUD/Label.text = "MAX LIFE: "+ str(Genetic.max_life)
 	_on_ResetButton_pressed()
-	pass # Replace with function body.
 
 
 func _on_HScrollBar2_value_changed(value):
 	$HUD/Label2.text = "Time scale: " + str(value)
 	Engine.time_scale = value
-	pass # Replace with function body.
 
 
 func _on_viewbest_toggled(button_pressed):
 	viewbest = button_pressed
-	pass # Replace with function body.
