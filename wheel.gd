@@ -9,3 +9,4 @@ func _ready():
 
 func _physics_process(_delta):
 	angular_velocity = turningspeed
+	pass

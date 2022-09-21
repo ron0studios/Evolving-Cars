@@ -3,55 +3,51 @@
 [ext_resource path="res://cam.gd" type="Script" id=1]
 [ext_resource path="res://RoadGeneration.gd" type="Script" id=2]
 [ext_resource path="res://game.gd" type="Script" id=3]
+[ext_resource path="res://ColorRect.gd" type="Script" id=4]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
 glow_enabled = true
 glow_bloom = 0.27
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10008.1, 98.7132 )
-
 [node name="game" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 1
 layer = -10
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.211765, 0.211765, 0.243137, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 4 )
 
 [node name="look-goodifier" type="WorldEnvironment" parent="."]
+pause_mode = 1
 environment = SubResource( 1 )
 
 [node name="RoadGeneration" type="StaticBody2D" parent="."]
+pause_mode = 1
 collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="start" type="ColorRect" parent="."]
+pause_mode = 1
 margin_left = 184.0
 margin_top = 320.0
 margin_right = 200.0
 margin_bottom = 336.0
 color = Color( 0.0509804, 0.67451, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="end" type="ColorRect" parent="."]
+pause_mode = 1
 margin_left = 2500.0
 margin_top = 320.0
 margin_right = 2516.0
 margin_bottom = 336.0
 color = Color( 0.67451, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 100
@@ -62,9 +58,6 @@ margin_top = 2.39825
 margin_right = 1025.06
 margin_bottom = 90.3983
 color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StartButton" type="Button" parent="HUD"]
 margin_left = 33.0595
@@ -104,9 +97,6 @@ margin_bottom = 49.3983
 min_value = 7.0
 max_value = 50.0
 value = 20.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ZoomLabel" type="Label" parent="HUD"]
 margin_left = 530.06
@@ -141,10 +131,10 @@ __meta__ = {
 }
 
 [node name="TimeLabel" type="Label" parent="HUD"]
-margin_left = 921.06
-margin_top = 10.3983
-margin_right = 1017.06
-margin_bottom = 50.3983
+margin_left = 224.0
+margin_top = 64.0
+margin_right = 320.0
+margin_bottom = 88.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -159,18 +149,15 @@ __meta__ = {
 }
 
 [node name="gentimelabel" type="Label" parent="HUD"]
-margin_left = 801.126
-margin_top = 5.44852
-margin_right = 937.126
-margin_bottom = 37.4485
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = 192.0
+margin_top = 64.0
+margin_right = 320.0
+margin_bottom = 96.0
 
 [node name="lifetime" type="HScrollBar" parent="HUD"]
-margin_left = 705.06
+margin_left = 664.06
 margin_top = 58.3983
-margin_right = 865.06
+margin_right = 824.06
 margin_bottom = 82.3983
 min_value = 2.0
 step = 1.0
@@ -180,9 +167,9 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="HUD"]
-margin_left = 729.06
+margin_left = 688.06
 margin_top = 42.3983
-margin_right = 827.06
+margin_right = 786.06
 margin_bottom = 66.3983
 text = "MAX LIFETIME: "
 __meta__ = {
@@ -216,38 +203,34 @@ __meta__ = {
 margin_left = 633.378
 margin_top = 3.10535
 margin_right = 806.378
-margin_bottom = 43.1053
+margin_bottom = 43.1054
 text = "View best only"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label3" type="Label" parent="HUD"]
+margin_left = 40.0
+margin_top = 64.0
+margin_right = 192.0
+margin_bottom = 86.0
+
+[node name="selection" type="OptionButton" parent="HUD"]
+margin_left = 864.0
+margin_top = 8.0
+margin_right = 1016.0
+margin_bottom = 32.0
+
 [node name="cars" type="Node2D" parent="."]
+pause_mode = 1
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2( 512, 304 )
 current = true
 script = ExtResource( 1 )
 
-[node name="debugplatform" type="StaticBody2D" parent="."]
-position = Vector2( 9920, 574.486 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="debugplatform"]
-shape = SubResource( 2 )
-
-[node name="ColorRect" type="ColorRect" parent="debugplatform"]
-margin_left = -9998.0
-margin_top = -98.0
-margin_right = 10004.0
-margin_bottom = 104.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="gentimelimit" type="Timer" parent="."]
+pause_mode = 1
 process_mode = 0
 one_shot = true
 
@@ -259,4 +242,5 @@ one_shot = true
 [connection signal="value_changed" from="HUD/lifetime" to="." method="_on_lifetime_value_changed"]
 [connection signal="value_changed" from="HUD/HScrollBar2" to="." method="_on_HScrollBar2_value_changed"]
 [connection signal="toggled" from="HUD/viewbest" to="." method="_on_viewbest_toggled"]
+[connection signal="item_selected" from="HUD/selection" to="." method="_on_selection_item_selected"]
 [connection signal="timeout" from="gentimelimit" to="." method="_on_gentimelimit_timeout"]

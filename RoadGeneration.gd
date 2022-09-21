@@ -10,6 +10,8 @@ export (Array, NodePath) var lines_to_follow = [NodePath("Line2D")]
 
 
 func _input(event):
+	if get_global_mouse_position().x <= 1024 and get_global_mouse_position().y <= 91:
+		return
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		_pressed = event.pressed
 		
@@ -19,6 +21,8 @@ func _input(event):
 			_current_line.width = 10.0
 			self.add_child(_current_line)
 		else:
+			if not _current_line:
+				return
 			var path_to_line = _current_line.get_path()
 			var num_segments : int = 0
 			var line_points : Array = []

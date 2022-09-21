@@ -74,7 +74,8 @@ func _ready():
 		$wheels.add_child(newwheel)
 		
 		newwheel.gravity_scale *= cardata[4][i] # wheel weight
-		totalweight += cardata[4][i]
+		newwheel.mass *= cardata[4][i]
+		totalweight *= cardata[4][i]
 		newwheel.get_node("Sprite").modulate = Color(cardata[4][i]/3,(3.01-cardata[4][i])/3.01,0)
 		
 		newwheel.get_node("Sprite").scale *= cardata[3][i]
@@ -109,12 +110,12 @@ func _physics_process(_delta):
 		$idletimer.stop()
 		$idletimer.start()
 	
-	if global_position.x >= get_parent().get_parent().get_node("end").rect_global_position.x and finished == false:
-		emit_signal("done")
-		finished = true
-		distance = get_parent().get_parent().get_node("end").rect_global_position.x
-		lifetime = 1000-$idletimer.time_left 
-		$debuglabel.text = str(lifetime)
+#	if global_position.x >= get_parent().get_parent().get_node("end").rect_global_position.x and finished == false:
+#		emit_signal("done")
+#		finished = true
+#		distance = get_parent().get_parent().get_node("end").rect_global_position.x
+#		lifetime = 1000-$idletimer.time_left 
+#		$debuglabel.text = str(lifetime)
 
 
 func _on_idletimer_timeout():

@@ -9,7 +9,8 @@ var generations = []
 var genfitness = []
 var gensize = 20 # size per generation
 var fitness_id = 0
-var mutate_chance = 0.05
+var selection_id = 0
+var mutate_chance = 0.01
 var max_life = 30
 
 
@@ -25,7 +26,7 @@ func randomgen():# generates a completely random first generation
 			gene[0].append(randomizer.randf_range(-1,1)) # x coord
 			gene[1].append(randomizer.randf_range(-1,1)) # y coord
 			gene[2].append(round(randf())) # wheelenabled
-			gene[3].append(randf()) # wheel radius (close to 0 means no wheel)
+			gene[3].append(randf()*1.5) # wheel radius (close to 0 means no wheel)
 			gene[4].append((randf()+0.01)*2) # wheel weight (0-2x weight) (close to 0 means no weight)
 		outgen.append(gene)
 	
@@ -104,7 +105,6 @@ func elitism_selection(set : Array, amt : int = 2):
 	for i in range(len(set)):
 		set[i].append(genfitness[-1][i])
 	
-	
 	set.sort_custom(self, "fitcomp")
 	
 	
@@ -170,19 +170,20 @@ func mutate(gene):
 	# wheel radius
 	for i in range(len(set[3])):
 		if randf() <= mutate_chance:
-			set[3][i] = randf()*1.5
+			set[3][i] = randf()*2.5
 			n_mut += 1
 	
 	# wheel weight
 	for i in range(len(set[4])):
 		if randf() <= mutate_chance:
-			set[4][i] = (randf()+0.01)*3
+			set[4][i] = (randf()+0.01)*5
 			n_mut += 1
 
 	n_mutations += n_mut
 	return set
 
 func nextgen(inp):
+	
 	var prevgen = inp
 	var gen = []
 	
@@ -196,8 +197,13 @@ func nextgen(inp):
 		if len(gen) == 4: # DEBUG breakpoint for bug
 			pass
 		#var selection = elitism_selection(prevgen)
-		#var selection = tournament_selection(prevgen,4)
-		var selection = roulette_selection(prevgen)
+		var selection: Array
+		if selection_id == 1:
+			selection = roulette_selection(prevgen)
+		else:
+			selection = tournament_selection(prevgen,4)
+	
+	
 		var crossover = single_point_crossover(selection[0].duplicate(),selection[1].duplicate())
 		var newchildA = crossover[0]
 		var newchildB = crossover[1]
@@ -230,15 +236,14 @@ func nextgen(inp):
 # wheelsum: sum of sizes of all wheels (we want to minimize)
 func fitness(distance, wheelsum, bodyvolume, weight):
 	
-	
 	match fitness_id:
-		0: # balanced
+		3: # balanced
 			return pow(distance,2) - pow(wheelsum*30,3) 
 		1: # volume
 			return -bodyvolume
 		2: # wheels
 			return wheelsum
-		3: # distance
+		0: # distance
 			return distance
 		4: # weight
 			return weight

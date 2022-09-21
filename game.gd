@@ -8,11 +8,16 @@ func _ready():
 	Engine.time_scale = 3
 	
 	# WHY ARE OPTION BUTTONS BROKEY
-	$HUD/FitnessButton.add_item("Maximize distance", 3)
+	$HUD/FitnessButton.add_item("Maximize distance", 0)
 	$HUD/FitnessButton.add_item("Minimize volume", 1)
 	$HUD/FitnessButton.add_item("Maximize wheels", 2)
-	$HUD/FitnessButton.add_item("balamced", 0)
+	$HUD/FitnessButton.add_item("balamced", 3)
 	$HUD/FitnessButton.add_item("Maximize weight", 4)
+	
+	$HUD/selection.add_item("tournament", 0)
+	$HUD/selection.add_item("roulette", 0)
+	
+	
 	
 	$HUD/Label.text = "MAX LIFE: "+ str(Genetic.max_life)
 	
@@ -21,6 +26,13 @@ func _ready():
 
 func _physics_process(_delta):
 	$HUD/gentimelabel.text = "Time left: " + str(stepify($gentimelimit.time_left,0.01))
+	
+	if Input.is_action_just_pressed("space"):
+		get_tree().paused = !get_tree().paused
+		if get_tree().paused:
+			$HUD/Label3.text = "PAUSED"
+		else:
+			$HUD/Label3.text = ""
 	
 	if Input.is_key_pressed(KEY_Q):
 		if $cam.zoom.x >= 0.2:
@@ -34,14 +46,17 @@ func _physics_process(_delta):
 		$HUD/ZoomLabel.text = "Zoom: "+ str($cam.zoom).split(',')[0].substr(1, 5)
 		$HUD/HScrollBar.value = $cam.zoom.x
 		
+	var mod = 1
+	if Input.is_key_pressed(KEY_SHIFT):
+		mod = 2
 	if Input.is_key_pressed(KEY_D):
-		$cam.position.x += 15
+		$cam.position.x += 15*mod
 	elif Input.is_key_pressed(KEY_A):
-		$cam.position.x -= 15
+		$cam.position.x -= 15*mod
 	if Input.is_key_pressed(KEY_W):
-		$cam.position.y -= 15
+		$cam.position.y -= 15*mod
 	elif Input.is_key_pressed(KEY_S):
-		$cam.position.y += 15
+		$cam.position.y += 15*mod
 		
 	if viewbest:
 		var bestcardistance = -10000
@@ -65,7 +80,8 @@ func _physics_process(_delta):
 
 
 func _on_StartButton_pressed():
-	resetGen()
+	if genpassed == 0:
+		resetGen(false)
 
 	$gentimelimit.wait_time = Genetic.max_life
 	$gentimelimit.start()
@@ -88,7 +104,7 @@ func _on_ResetButton_pressed():
 	resetGen()
 
 
-func resetGen():
+func resetGen(removeRoad = true):
 	genpassed = 0
 	Genetic.generations = []
 	Genetic.generations.append(Genetic.randomgen())
@@ -97,9 +113,10 @@ func resetGen():
 	for i in $cars.get_children():
 		i.queue_free()
 	
-	for i in $RoadGeneration.get_children():
-		i.queue_free()
-	
+	if removeRoad:
+		for i in $RoadGeneration.get_children():
+			i.queue_free()
+		
 	$gentimelimit.stop()
 	$HUD/GenLabel.text = "Generation: " + str(genpassed)
 
@@ -118,6 +135,8 @@ func end():
 		var bodyvolume = i.bodyvolume
 		var weight = i.totalweight
 		all.append(Genetic.fitness(distance,wheelsum,bodyvolume,weight))
+	
+	#print("\n\n\n",all,"\n\n\n")
 	Genetic.genfitness.append(all)
 	
 	Genetic.nextgen(Genetic.generations[-1])
@@ -158,7 +177,7 @@ func _on_gentimelimit_timeout():
 func _on_lifetime_value_changed(value):
 	Genetic.max_life = value
 	$HUD/Label.text = "MAX LIFE: "+ str(Genetic.max_life)
-	_on_ResetButton_pressed()
+	resetGen(false)
 
 
 func _on_HScrollBar2_value_changed(value):
@@ -168,3 +187,8 @@ func _on_HScrollBar2_value_changed(value):
 
 func _on_viewbest_toggled(button_pressed):
 	viewbest = button_pressed
+
+
+func _on_selection_item_selected(index):
+	Genetic.selection_id = index
+	pass # Replace with function body.
